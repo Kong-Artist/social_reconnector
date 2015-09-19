@@ -2,4 +2,6 @@
   <title>Social Connector</title>
 </head>
 
-<h1>THIS IS THE SOCIAL CONNECTOR</h1>
+{% for friend in friends %}
+  <li> {{ friend.name }} </li>
+{% endfor %}
