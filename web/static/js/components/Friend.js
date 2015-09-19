@@ -1,10 +1,15 @@
 var Friend = React.createClass({
-    displayName: "Friend",
+	displayName: "Friend",
     render: function() {
         return (
             <div>
-                friend
+                <div>
+                    and this is the <b>{this.props.name}</b>
+                </div>
+                <div>
+                	{this.props.child}
+                </div>
             </div>
-        )
+        );
     }
-})
+});
