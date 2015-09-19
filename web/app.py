@@ -41,23 +41,26 @@ def get_images(access_token=ACCESS, photo_id="0000000", fields=[]):
 
 def get_topics(text):
     tag_dictionary = indicoio.text_tags(text)
-    return sorted(tag_dictionary.keys(), key=lambda x: tag_dictionary[x], reverse=True)
+    return [(key, tag_dictionary[key]) for key in sorted(tag_dictionary.keys(), key=lambda x: tag_dictionary[x], reverse=True)]
 
+"""
+Get topics that user logged in talks about in his posts
+
+"""
 def get_user_topics():
     posts = get_fb(end_point="posts")
-    pdb.set_trace()
     if not posts:
         return None
     posts = filter(lambda x: 'story' not in x.keys(), posts['data'])
     messages = [x['message'] for x in posts]
-    messages = filter(lambda x: not is_link(x), messages)
-
+#     messages = filter(lambda x: not is_link(x), messages)
     topics = []
     for message in messages:
         topics.append(get_topics(message))
 
-    return topics
+    pdb.set_trace()
 
+    return topics
 
 def is_link(link):
     pattern = r'[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(\?([-a-zA-Z0-9@:%_\+.~#?&//=]+)|)'
