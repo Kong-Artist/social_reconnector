@@ -1,6 +1,6 @@
 var App = React.createClass({
     displayName: "App",
-    propTypes: function() {
+    propTypes: {
         initialPage: React.PropTypes.string // login, friends, results
     },
     getInitialState: function() {
@@ -30,7 +30,7 @@ var App = React.createClass({
 React.render(
     React.createElement(
         App, {
-            initialPage: 'friends'//'login'
+            initialPage: 'login'
         }
     ),
     document.getElementById('app')
