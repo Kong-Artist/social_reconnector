@@ -3,31 +3,36 @@ var App = React.createClass({
   propTypes: {
     initialPage: React.PropTypes.string // login, friends, results
   },
-  loadFriendsFromServer: function() {
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-  componentDidMount: function() {
-    console.log("SOmething");
-    if (this.state.page == "friends") {
-      console.log(this.data);
-      this.loadFriendsFromServer();
-      setInterval(this.loadFriendsFromServer, 2000);
-    }
-  },
+  // loadFriendsFromServer: function() {
+  //   $.ajax({
+  //     url: this.props.url,
+  //     dataType: 'json',
+  //     cache: false,
+  //     success: function(data) {
+  //       console.log(data);
+  //       this.setState({data: data});
+  //     }.bind(this),
+  //     error: function(xhr, status, err) {
+  //       console.error(this.props.url, status, err.toString());
+  //     }.bind(this)
+  //   });
+  // },
+  // componentDidMount: function() {
+  //   console.log("SOmething");
+  //   if (this.state.page == "friends") {
+  //     console.log(this.data);
+  //     this.loadFriendsFromServer();
+  //     setInterval(this.loadFriendsFromServer, 2000);
+  //   }
+  // },
   getInitialState: function() {
     return {
       page: this.props.initialPage || 'login',
-      data: []
+      data: [
+        {"name":"John Doe", "thumb":"Picture of John"},
+        {"name":"Ariadne Grande", "thumb":"Picture of Ariadne"},
+        {"name":"Taylor Swift", "thumb":"Picture of Taylor"}
+      ]
     }
   },
   render: function() {
@@ -53,7 +58,7 @@ React.render(
   React.createElement(
     App, {
       initialPage: 'friends',//'login'
-      url: 'friends.json'
+      url: 'public/friends.json'
     }
   ),
   document.getElementById('app')
