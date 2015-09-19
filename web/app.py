@@ -47,20 +47,21 @@ def get_topics(text):
 Get topics that user logged in talks about in his posts
 
 """
-def get_user_topics():
-    posts = get_fb(end_point="posts")
+def get_user_topics(user="me"):
+    posts = get_fb(user=user, end_point="posts")
+
     if not posts:
         return None
+
     posts = filter(lambda x: 'story' not in x.keys(), posts['data'])
-    messages = [x['message'] for x in posts]
-#     messages = filter(lambda x: not is_link(x), messages)
-    topics = []
-    for message in messages:
-        topics.append(get_topics(message))
+    messages = " ".join([x['message'] for x in posts])
 
-    pdb.set_trace()
+    return sorted(get_topics(messages), key=lambda x: x[1], reverse=True)
 
-    return topics
+def jaccard(a, b):
+    a = set(a)
+    b = set(b)
+    return len(a.intersection(b))/len(a.union(b))
 
 def is_link(link):
     pattern = r'[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(\?([-a-zA-Z0-9@:%_\+.~#?&//=]+)|)'
