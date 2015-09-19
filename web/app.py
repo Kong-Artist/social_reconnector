@@ -2,7 +2,10 @@ from flask import Flask, render_template
 import pdb
 import requests
 import json
+
 import indicoio
+
+import re
 
 ACCESS = "CAACEdEose0cBAMva4ZBPE3mtyZARA10C01RbuMBhaOZCBbtZAFkw8k1TqGJ05lA0s8F8FEJDHKOu4trcwhqQJu3ZCZCHAoxH08DMzc372KMhcGiMhhxea4VEXHExWiU9XvprxdZCKOyKvrioZC2w3cUP52X6HfcGrmpuX9NNFXCtu9N2ZAaF5s5GQZBoIfZBgBsSFpuQ4IHjuGnGlYj1RfZBB7cZBcXrlYiXg20EZD"
 
@@ -54,6 +57,11 @@ def get_user_topics():
         topics.append(get_topics(message))
 
     return topics
+
+
+def is_link(link):
+    pattern = r'[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(\?([-a-zA-Z0-9@:%_\+.~#?&//=]+)|)'
+    return bool(re.match(pattern, link, re.M|re.I))
 
 if __name__ == "__main__":
     app.run(debug=True)
