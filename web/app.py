@@ -14,12 +14,19 @@ def home():
     friends = get_friends()
     return render_template("index.html", friends=friends["data"])
 
-def get_friends(access_token=ACCESS, user="me"):
-    data = requests.get(ROOT_URL + user + "friends?access_token=" + access_token)
-    return json.loads(data.text)
+"""
+End points:
 
-def get_posts(access_token=ACCESS, user="me"):
-    data = requests.get(ROOT_URL + user + "/posts?access_token=" + access_token)
+"friends": List of friends of "user"
+"likes": Pages that "user" has liked
+"posts": Posts on the user's front page
+"events": Events that the user has attended. Useful location info for recommendations
+"movies": Movies that the user has watched
+"music": Artists that the user likes
+"tagged_places": Locations the user was tagged in
+"""
+def get_fb(access_token=ACCESS, user="me", end_point):
+    data = requests.get(ROOT_URL + user + "/" + end_point + "?access_token=" + access_token)
     return json.loads(data.text)
 
 if __name__ == "__main__":
