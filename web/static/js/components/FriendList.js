@@ -3,9 +3,11 @@ var FriendList = React.createClass({
     console.log(this.props);
     var friendNodes = this.props.data.map(function (friend) {
       return (
-        <Friend name={friend.name}>
-          {friend.thumb}
-        </Friend>
+        <div>
+          <Friend name={friend.name}>
+            {friend.thumb}
+          </Friend>
+        </div>
       );
     });
     return (
