@@ -8,5 +8,3 @@ var Parent = React.createClass({
         );
     }
 });
-
-module.exports = Parent;
