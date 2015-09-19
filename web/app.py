@@ -29,5 +29,9 @@ def get_fb(access_token=ACCESS, user="me", end_point):
     data = requests.get(ROOT_URL + user + "/" + end_point + "?access_token=" + access_token)
     return json.loads(data.text)
 
+def get_images(access_token=ACCESS, photo_id, fields=[]):
+    data = requests.get(ROOT_URL + photo_id + "?fields=" + ",".join([x for x in fields]) + "&access_token=" + access_token)
+    return json.loads(data.text)
+
 if __name__ == "__main__":
     app.run(debug=True)
