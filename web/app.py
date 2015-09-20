@@ -13,6 +13,8 @@ ROOT_URL = "https://graph.facebook.com/v2.4/"
 
 indicoio.config.api_key = 'a904fcec233ed2f418ae32f2ad179000'
 
+END_POINTS = ["likes", "posts", "events", "movies", "music", "tagged_places"]
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -31,9 +33,17 @@ End points:
 "music": Artists that the user likes
 "tagged_places": Locations the user was tagged in
 """
-def get_fb(access_token=ACCESS, user="me", end_point="posts"):
-    data = requests.get(ROOT_URL + user + "/" + end_point + "?access_token=" + access_token)
-    return json.loads(data.text)
+def get_fb(access_token=ACCESS, user="me", end_point="posts", page_limit=1):
+    pages = []
+    request_url = ROOT_URL + user + "/" + end_point + "?access_token=" + access_token
+    for i in range(0, page_limit):
+        data = requests.get(request_url)
+        data_json = json.loads(data.text)
+        pages.append(data_json['data'])
+        if 'next' not in data_json['paging']: break
+        request_url = data_json['paging']['next']
+
+    return deflate_list(pages)
 
 def get_images(access_token=ACCESS, photo_id="0000000", fields=[]):
     data = requests.get(ROOT_URL + photo_id + "?fields=" + ",".join([x for x in fields]) + "&access_token=" + access_token)
@@ -47,14 +57,25 @@ def get_topics(text):
 Get topics that user logged in talks about in his posts
 
 """
-def get_user_topics(user="me"):
-    posts = get_fb(user=user, end_point="posts")
+def get_user_topics(user="me", page_limit=1):
+    posts = get_fb(user=user, end_point="posts", page_limit=page_limit)
 
     if not posts:
         return None
 
-    posts = filter(lambda x: 'story' not in x.keys(), posts['data'])
+    posts = filter(lambda x: 'story' not in x.keys(), [post for post in posts])
     messages = " ".join([x['message'] for x in posts])
+
+    return sorted(get_topics(messages), key=lambda x: x[1], reverse=True)
+
+def get_user_likes(user="me", page_limit=1):
+    likes = get_fb(user=user, end_point="likes", page_limit=page_limit)
+
+    if not likes:
+        return None
+
+    likes = filter(lambda x: 'story' not in x.keys(), [like for like in likes])
+    messages = " ".join([x['message'] for x in likes])
 
     return sorted(get_topics(messages), key=lambda x: x[1], reverse=True)
 
@@ -66,6 +87,33 @@ def jaccard(a, b):
 def is_link(link):
     pattern = r'[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(\?([-a-zA-Z0-9@:%_\+.~#?&//=]+)|)'
     return bool(re.match(pattern, link, re.M|re.I))
+
+def deflate_list(arrays):
+    data = []
+    for array in arrays:
+        for element in array:
+            data.append(element)
+
+    return data
+
+def get_other_interests(user="me", page_limit=1):
+    end_points = ["likes", "events", "movies", "music"]
+    interests = []
+    for point in end_points:
+        data = get_fb(ACCESS, user, point, page_limit)
+        for datum in data:
+            interests.append(datum['name'])
+
+    return interests
+
+def get_locations(user="me", page_limit=1):
+    places = []
+    places_data = get_fb(ACCESS, user, 'tagged_places', page_limit)
+    for place in places_data:
+        location = place['place']['location']
+        places.append((location['city'], location['country']))
+
+    return places
 
 if __name__ == "__main__":
     app.run(debug=True)
