@@ -11,7 +11,7 @@ var Results = React.createClass({
     });
     return (
       <div className="recommendation-list-container">
-        <h1>Your recommendations</h1>
+        <h1>Things you have in common:</h1>
         <div>
           {resultNodes}
         </div>

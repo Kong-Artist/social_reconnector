@@ -44,7 +44,11 @@ var Login = React.createClass({
     render: function() {
         return (
             <div>
-                <div className="fb-login-button" onClick="">Login with Facebook</div>
+                <h1>ReConnect</h1>
+                <h3>Connect again with old friends!</h3>
+                <div className="circle center">
+                </div>
+                <div className="fb-login-button">Login with Facebook</div>
             </div>
         )
     }

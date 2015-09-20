@@ -32,7 +32,7 @@ var App = React.createClass({
       if (this.state.friends.length == 0) {
         return (
           <div>
-            You have no friends
+            <h1>You have no friends :(</h1>
           </div>
         )
       } else {
@@ -46,7 +46,7 @@ var App = React.createClass({
       if (this.state.recommendations.length == 0) {
         return (
           <div>
-            You have nothing in common
+            <h1>You have nothing in common...</h1>
           </div>
         )
       } else {
