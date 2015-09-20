@@ -1,6 +1,6 @@
 var FriendList = React.createClass({
   render: function() {
-    var friendNodes = this.props.data.map(function (friend) {
+    var friendNodes = this.props.friends.map(function (friend) {
       return (
         <div>
           <Friend name={friend.name} />
@@ -10,7 +10,7 @@ var FriendList = React.createClass({
     });
     return (
       <div className="friend-list-container">
-        This is the parent container.
+        <h1>Your friends</h1>
         <div>
           {friendNodes}
         </div>
