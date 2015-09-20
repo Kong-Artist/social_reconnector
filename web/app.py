@@ -7,7 +7,7 @@ import indicoio
 
 import re
 
-ACCESS = "CAACEdEose0cBAMtJKkcXoS1oQqOgmyiIhzKQRsKgQZCQNDOcPa6aFooO36X23uc6514OxlNB9J9GzSKYnrZCfi98jjE4VKt4pHL6W6yAJi7YpdvDbkKUGQ2fNwJe4UJNyGzZC1NfL0oS11jHR2yNilTZBVTqDXDWAGbueKQ1eXvZBxRrRbNwPdZA8ogZA5mbokupUUcqafHZAQYWyFBeZAGuP"
+ACCESS = "CAACEdEose0cBAC0LNrL3POghFJnF5EuCNOsdJHz4m4H0W1IdZCfO1Kedulf8oxcNOQeA3K1kgvieEpdzltzVkMOLlJzsZBzzEIi1YvJ93E3N9JIDDwThdPvW4HVzJU8ZB92vjgiKREEsb4IfgrR0uuGhyGhWiTwzTVClGOzHUc1BWZAaAdvF1E2s2x7XKkFN60jrawZAm0nZAb1TJW9nQ1"
 
 ROOT_URL = "https://graph.facebook.com/v2.4/"
 
@@ -25,6 +25,12 @@ def home():
 def find_friends():
     friends = get_fb(end_point="friends")
     return json.dumps(friends)
+
+@app.route('/api/topics/<int:friend_id>')
+def topics(friend_id):
+    my_topics = get_user_topics()
+    friend_topics = get_user_topics(user=str(friend_id))
+    return json.dumps(list(intersection(my_topics, friend_topics))[:10])
 
 """
 End points:
@@ -44,6 +50,7 @@ def get_fb(access_token=ACCESS, user="me", end_point="posts", page_limit=1):
         data = requests.get(request_url)
         data_json = json.loads(data.text)
         pages.append(data_json['data'])
+        if 'paging' not in data_json: break
         if 'next' not in data_json['paging']: break
         request_url = data_json['paging']['next']
 
@@ -55,7 +62,7 @@ def get_images(access_token=ACCESS, photo_id="0000000", fields=[]):
 
 def get_topics(text):
     tag_dictionary = indicoio.text_tags(text)
-    return [(key, tag_dictionary[key]) for key in sorted(tag_dictionary.keys(), key=lambda x: tag_dictionary[x], reverse=True)]
+    return [key for key in sorted(tag_dictionary.keys(), key=lambda x: tag_dictionary[x], reverse=True)]
 
 """
 Get topics that user logged in talks about in his posts
@@ -87,6 +94,11 @@ def jaccard(a, b):
     a = set(a)
     b = set(b)
     return len(a.intersection(b))/len(a.union(b))
+
+def intersection(a, b):
+    a = set(a)
+    b = set(b)
+    return a.intersection(b)
 
 def is_link(link):
     pattern = r'[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(\?([-a-zA-Z0-9@:%_\+.~#?&//=]+)|)'
