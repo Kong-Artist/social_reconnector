@@ -10,6 +10,11 @@ h1, h2, h3, h4, h5, p {
 	color: white;
 }
 
+.thumbnail {
+	height: 100px;
+	border-radius: 1000px;
+}
+
 .circle {
 	width: 250px;
 	height: 250px;
