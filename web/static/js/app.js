@@ -15,6 +15,7 @@ app.config(
                 template: '<h3>friends</h3>'
             });
 
-        
+        $locationProvider.html5Mode(true);
+        $logProvider.debugEnabled(true);
     }
-)
+);
