@@ -32,6 +32,12 @@ def topics(friend_id):
     friend_topics = get_user_topics(user=str(friend_id))
     return json.dumps(list(intersection(my_topics, friend_topics))[:10])
 
+@app.route('/api/avatar/<str:user_id>')
+def get_avatar(user_id, dimension=500):
+    request_url = ROOT_URL + user_id + "/picture" + "?height=" + str(dimension) + "&width=" + str(dimension) + "&access_token=" + ACCESS
+    request = requests.head(request_url, allow_redirects=True)
+    return request.url
+
 """
 End points:
 
@@ -130,6 +136,12 @@ def get_locations(user="me", page_limit=1):
         places.append((location['city'], location['country']))
 
     return places
+
+def get_avatar(user_id, dimension):
+    request_url = ROOT_URL + user_id + "/picture" + "?height=" + dimension + "&width=" + dimension
+    data = requests.get(request_url)
+    return json.loads(data.text)['data']['url']
+
 
 if __name__ == "__main__":
     app.run(debug=True)
