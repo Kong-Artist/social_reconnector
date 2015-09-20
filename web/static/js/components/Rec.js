@@ -3,7 +3,7 @@ var Rec = React.createClass({
     render: function() {
         return (
             <div className="recommendation">
-                this.prop.name
+                {this.prop.name}
             </div>
         );
     }

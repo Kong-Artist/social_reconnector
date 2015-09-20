@@ -13,10 +13,10 @@ var Actions = {
         }).fail(function(err) {
           console.log(err);
         });
-        
+
     },
     getRecommendations: function(id) {
-      $.getJSON("/api/topic/" + id)
+      $.getJSON("/api/topics/" + id)
         .done(function(res) {
           Dispatcher.dispatch({
             actionType: "get-recommendations",
