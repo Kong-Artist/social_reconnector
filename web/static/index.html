@@ -1,26 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
     <head>
         <meta charset="utf-8">
-        <title>todo</title>
-        <script src="bower_components/react/react.js"></script>
-        <script src="bower_components/react/JSXTransformer.js"></script>
+        <title>blah</title>
+        <script src="bower_components/angular/angular.js"></script>
         <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="bower_components/pure/pure.css" />
+        <base href="/" />
     </head>
-    <body>
-        <div id="example"></div>
-
-        <div id="app">
-            <script type="text/jsx" src="js/components/Login.js"></script>
-            <script type="text/jsx" src="js/components/Friends.js"></script>
-            <script type="text/jsx" src="js/components/Results.js"></script>
-
-            <script type="text/jsx" src="js/components/LoginToFriends.js"></script>
-
-            <script type="text/jsx" src="js/components/Friend.js"></script>
-            <script type="text/jsx" src="js/components/Thumbnail.js"></script>
-            <script type="text/jsx" src="js/components/App.js"></script>
-        </div>
+    <body ui-view>
+        
     </body>
 </html>
