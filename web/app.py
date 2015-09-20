@@ -25,7 +25,8 @@ def home():
 def find_friends():
     friends = get_fb(end_point="friends")
     for friend in friends:
-        friend['avatar'] = get_avatar(friend['id'])
+        pdb.set_trace()
+        friend['avatar'] = get_avatar(str(friend['id']), 500)
     return json.dumps(friends)
 
 @app.route('/api/topics/<int:friend_id>')
@@ -37,7 +38,6 @@ def topics(friend_id):
 def get_avatar(user_id, dimension=500):
     request_url = ROOT_URL + user_id + "/picture" + "?height=" + str(dimension) + "&width=" + str(dimension) + "&access_token=" + ACCESS
     request = requests.head(request_url, allow_redirects=True)
-    pdb.set_trace()
     return request.url
 
 """
@@ -138,12 +138,6 @@ def get_locations(user="me", page_limit=1):
         places.append((location['city'], location['country']))
 
     return places
-
-def get_avatar(user_id, dimension):
-    request_url = ROOT_URL + user_id + "/picture" + "?height=" + dimension + "&width=" + dimension
-    data = requests.get(request_url)
-    return json.loads(data.text)['data']['url']
-
 
 if __name__ == "__main__":
     app.run(debug=True)
