@@ -36,7 +36,13 @@ var App = React.createClass({
         else {
             return (
                 <div>
-                    <button onClick={Actions.getFriends()}>get friends</button>
+                    <button onClick={Actions.getFriends}>get friends</button>
+                    <h1>;_;</h1>
+                    <h1>;_;</h1>
+                    <h1>;_;</h1>
+                    <h1>;_;</h1>
+                    <h1>;_;</h1>
+                    <h1>;_;</h1>
                     <h1>;_;</h1>
                 </div>
             )

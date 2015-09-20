@@ -16,14 +16,14 @@ var recommendation = {};
 var Actions = {
     getFriends: function() {
       $.getJSON("/api/friends")
-          .done(function(res) {
-              Dispatcher.dispatch({
-                actionType: "get-friends",
-                data: res.data
-              })
-          }, function(err) {
-              console.log(err);
-          });
+        .done(function(res) {
+          Dispatcher.dispatch({
+            actionType: "get-friends",
+            data: res.data
+          })
+        }, function(err) {
+          console.log(err);
+        });
         
     },
     getRecommendations: function(id) {
