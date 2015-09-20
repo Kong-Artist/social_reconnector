@@ -3,11 +3,6 @@ var App = React.createClass({
   propTypes: {
     initialPage: React.PropTypes.string // login, friends, results
   },
-  // data: [
-  //   {"name":"John Doe", "thumb":"Picture of John"},
-  //   {"name":"Ariadne Grande", "thumb":"Picture of Ariadne"},
-  //   {"name":"Taylor Swift", "thumb":"Picture of Taylor"}
-  // ],
   getInitialState: function() {
     return {
       page: this.props.initialPage || 'login'
@@ -17,9 +12,14 @@ var App = React.createClass({
     var self = this;
     Store.registerListener(function() {
         self.setState({
-            data: Store.friends
+            friends: Store.friends
         });
-    })
+    });
+    Store.registerListener(function() {
+        self.setState({
+            recommendation: Store.recommendation
+        });
+    });
   },
   render: function() {
     if(this.state.page == "login") {
@@ -28,15 +28,15 @@ var App = React.createClass({
       )
     }
     else if(this.state.page == "friends") {
-        if(this.state.data) {
+        if(this.state.friends) {
           return (
-            <FriendList data={this.state.data} />
+            <FriendList friends={this.state.friends} />
             )
         }
         else {
             return (
                 <div>
-                    <button onClick={Actions.getFriends}>get friends</button>
+                    <button onClick={Actions.getFriends()}>get friends</button>
                     <h1>;_;</h1>
                 </div>
             )
@@ -44,7 +44,7 @@ var App = React.createClass({
     }
     else if(this.state.page == "results") {
       return (
-        <Results />
+        <Results recommendation={this.state.recommendation}/>
       )
     }
   }
