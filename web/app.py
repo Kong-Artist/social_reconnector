@@ -25,7 +25,6 @@ def home():
 def find_friends():
     friends = get_fb(end_point="friends")
     for friend in friends:
-        pdb.set_trace()
         friend['avatar'] = get_avatar(str(friend['id']), 500)
     return json.dumps(friends)
 
