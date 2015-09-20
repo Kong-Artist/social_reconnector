@@ -9,12 +9,17 @@ var data = [
   {"name":"Taylor Swift", "thumb":"Picture of Taylor"}
 ];
 
+
 var Actions = {
     getFriends: function() {
-        // ajax
-        Dispatcher.dispatch({
-            actionType: 'get-friends',
-            data: data
-        })
+        $.getJSON("/api/friends")
+            .done(function(res) {
+                Dispatcher.dispatch({
+                    actionType: "get-friends",
+                    data: res.data
+                })
+            }, function(err) {
+                console.log(err);
+            });
     }
 }

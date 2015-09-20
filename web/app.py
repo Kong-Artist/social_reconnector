@@ -7,7 +7,7 @@ import indicoio
 
 import re
 
-ACCESS = "CAACEdEose0cBAMva4ZBPE3mtyZARA10C01RbuMBhaOZCBbtZAFkw8k1TqGJ05lA0s8F8FEJDHKOu4trcwhqQJu3ZCZCHAoxH08DMzc372KMhcGiMhhxea4VEXHExWiU9XvprxdZCKOyKvrioZC2w3cUP52X6HfcGrmpuX9NNFXCtu9N2ZAaF5s5GQZBoIfZBgBsSFpuQ4IHjuGnGlYj1RfZBB7cZBcXrlYiXg20EZD"
+ACCESS = "CAACEdEose0cBAMtJKkcXoS1oQqOgmyiIhzKQRsKgQZCQNDOcPa6aFooO36X23uc6514OxlNB9J9GzSKYnrZCfi98jjE4VKt4pHL6W6yAJi7YpdvDbkKUGQ2fNwJe4UJNyGzZC1NfL0oS11jHR2yNilTZBVTqDXDWAGbueKQ1eXvZBxRrRbNwPdZA8ogZA5mbokupUUcqafHZAQYWyFBeZAGuP"
 
 ROOT_URL = "https://graph.facebook.com/v2.4/"
 
@@ -19,8 +19,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    get_user_topics()
-    return render_template("index.html", friends=friends["data"])
+    return render_template("index.html")
+
+@app.route('/api/friends')
+def find_friends():
+    friends = get_fb(end_point="friends")
+    return json.dumps(friends)
 
 """
 End points:

@@ -1,7 +1,38 @@
-<head>
-  <title>Social Connector</title>
-</head>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>todo</title>
 
-{% for friend in friends %}
-  <li> {{ friend.name }} </li>
-{% endfor %}
+        <!-- DEPENDENCIES -->
+
+        <script src="/static/bower_components/react/react.js"></script>
+        <script src="/static/bower_components/react/JSXTransformer.js"></script>
+        <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/static/bower_components/flux/dist/Flux.js"></script>
+
+        <link rel="stylesheet" href="/static/css/style.css" />
+        <link rel="stylesheet" href="/static/bower_components/pure/pure.css" />
+
+        <!-- COMPONENTS -->
+        <script type="text/jsx" src="/static/js/actions/Actions.js"></script>
+        <script type="text/jsx" src="/static/js/stores/Store.js"></script>
+        <script type="text/jsx" src="/static/js/components/Login.js"></script>
+        <script type="text/jsx" src="/static/js/components/LoginToFriends.js"></script>
+
+        <script type="text/jsx" src="/static/js/components/Friend.js"></script>
+        <script type="text/jsx" src="/static/js/components/FriendList.js"></script>
+        <script type="text/jsx" src="/static/js/components/Thumbnail.js"></script>
+
+        <script type="text/jsx" src="/static/js/components/Results.js"></script>
+
+        <!-- APP -->
+
+        <script type="text/jsx" src="/static/js/components/App.js"></script>
+
+    </head>
+    <body>
+        <div id="example"></div>
+        <div id="app"></div>
+    </body>
+</html>
