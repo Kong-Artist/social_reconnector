@@ -1,22 +1,24 @@
 var Store = {
     friends: [],
-    recommendation: {},
-    callbacks: [],
+    recommendations: [],
+    callback: undefined,
     handleAction: function(action) {
         switch (action.actionType) {
             case 'get-friends':
                 this.friends = action.data;
+                this.callback("friends");
                 break;
             case 'get-recommendations':
-                this.recommendation = action.recommendation;
+                this.recommendations = action.data;
+                this.callback("results");
                 break;
         }
-        this.callbacks.forEach(function(callback) {
-            callback();
-        });
+        // this.callbacks.forEach(function(callback) {
+        //     callback();
+        // });
     },
     registerListener: function(callback) {
-        this.callbacks.push(callback);
+        this.callback = callback;
     }
 };
 
