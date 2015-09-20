@@ -68,6 +68,7 @@ def get_images(access_token=ACCESS, photo_id="0000000", fields=[]):
     return json.loads(data.text)
 
 def get_topics(text):
+    if not text: return []
     tag_dictionary = indicoio.text_tags(text)
     return [key for key in sorted(tag_dictionary.keys(), key=lambda x: tag_dictionary[x], reverse=True)]
 
@@ -83,7 +84,7 @@ def get_user_topics(user="me", page_limit=1):
 
     posts = filter(lambda x: 'story' not in x.keys(), [post for post in posts])
     messages = " ".join([x['message'] for x in posts if 'message' in x])
-
+    messages = messages.encode('ascii', 'ignore')
     return sorted(get_topics(messages), key=lambda x: x[1], reverse=True)
 
 def get_user_likes(user="me", page_limit=1):
