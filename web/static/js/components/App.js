@@ -5,46 +5,56 @@ var App = React.createClass({
   },
   getInitialState: function() {
     return {
+      friends: [],
+      recommendations: [],
       page: this.props.initialPage || 'login'
     }
   },
   componentDidMount: function() {
+    console.log("Finished rendering");
     var self = this;
-    Store.registerListener(function() {
+    Store.registerListener(function(page) {
         self.setState({
-            friends: Store.friends
-        });
-    });
-    Store.registerListener(function() {
-        self.setState({
-            recommendation: Store.recommendation
+            page: page,
+            friends: Store.friends,
+            recommendations: Store.recommendations
         });
     });
   },
   render: function() {
     if(this.state.page == "login") {
       return (
-        <Login />
+        // <Login />
+        <button onClick={Actions.getFriends}>get friends</button>
       )
     }
     else if(this.state.page == "friends") {
-        if(this.state.friends) {
-          return (
-            <FriendList friends={this.state.friends} />
-            )
-        }
-        else {
-            return (
-                <div>
-                    <button onClick={Actions.getFriends}>Find friends</button>
-                </div>
-            )
-        }
+      if (this.state.friends.length == 0) {
+        return (
+          <div>
+            You have no friends
+          </div>
+        )
+      } else {
+        console.log("in");
+        return (
+          <FriendList friends={this.state.friends} />
+        )
+      }
     }
     else if(this.state.page == "results") {
-      return (
-        <Results recommendation={this.state.recommendation}/>
-      )
+      if (this.state.recommendations.length == 0) {
+        return (
+          <div>
+            You have nothing in common
+          </div>
+        )
+      } else {
+        console.log("in");
+        return (
+          <Results recommendations={this.state.recommendations}/>
+        )
+      }
     }
   }
 });
