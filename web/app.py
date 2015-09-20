@@ -11,7 +11,7 @@ ACCESS = "CAACEdEose0cBAOZAX4XyZB2ldZC4St16bQJRK0eVhHYmUD15wEWZCcjlziZB4pIWPg2hY
 
 ROOT_URL = "https://graph.facebook.com/v2.4/"
 
-indicoio.config.api_key = 'd8c8c8a45936cfb7fb6dcebf73f01e63'
+indicoio.config.api_key = 'a904fcec233ed2f418ae32f2ad179000'
 
 END_POINTS = ["likes", "posts", "events", "movies", "music", "tagged_places"]
 
