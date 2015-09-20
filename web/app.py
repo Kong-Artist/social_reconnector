@@ -99,7 +99,9 @@ def get_user_likes(user="me", page_limit=1):
 
 def jaccard(a, b):
     a = set(a)
+    if not len(a): return set()
     b = set(b)
+    if not len(b): return set()
     return len(a.intersection(b))/len(a.union(b))
 
 def intersection(a, b):
