@@ -1,6 +1,10 @@
 var Login = React.createClass({
     displayName: "Login",
+    getFriends: function() {
+        Actions.getFriends();
+    },
     componentDidMount: function() {
+        var self = this;
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '130652690619615',
@@ -13,6 +17,7 @@ var Login = React.createClass({
                 if(response.status === "connected") {
                     console.log("connected") // redirect
                     console.log(FB.getUserID())
+                    self.getFriends();
                 }
                 else if(response.status === "not_authorized") {
                     console.log("not authorized") // don't do anything
@@ -25,6 +30,7 @@ var Login = React.createClass({
             FB.Event.subscribe('auth.login', function() {
                 console.log("logged in"); // redirect
                 console.log(FB.getUserID())
+                self.getFriends();
             });
         };
         (function(d){

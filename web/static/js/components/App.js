@@ -24,8 +24,8 @@ var App = React.createClass({
   render: function() {
     if(this.state.page == "login") {
       return (
-        // <Login />
-        <button onClick={Actions.getFriends}>get friends</button>
+        <Login />
+        // <button onClick={Actions.getFriends}>get friends</button>
       )
     }
     else if(this.state.page == "friends") {
