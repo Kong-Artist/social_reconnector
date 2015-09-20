@@ -7,7 +7,7 @@ import indicoio
 
 import re
 
-ACCESS = "CAACEdEose0cBAC0LNrL3POghFJnF5EuCNOsdJHz4m4H0W1IdZCfO1Kedulf8oxcNOQeA3K1kgvieEpdzltzVkMOLlJzsZBzzEIi1YvJ93E3N9JIDDwThdPvW4HVzJU8ZB92vjgiKREEsb4IfgrR0uuGhyGhWiTwzTVClGOzHUc1BWZAaAdvF1E2s2x7XKkFN60jrawZAm0nZAb1TJW9nQ1"
+ACCESS = "CAACEdEose0cBAOZAX4XyZB2ldZC4St16bQJRK0eVhHYmUD15wEWZCcjlziZB4pIWPg2hYESfpZBLvAdYeMz29BMdHtEaNgLkq6ZBxPufW7XAb9r5qIARZAUIu355wg7i1hR7HWzddbFcH2BbC6I0V2e73ME9RKdMh2RARdA4zZCZBjHwT7TrTHEpy40u18MVDm1JZAW5PCZACOgMaAlT9m3z5KlC"
 
 ROOT_URL = "https://graph.facebook.com/v2.4/"
 
@@ -32,10 +32,11 @@ def topics(friend_id):
     friend_topics = get_user_topics(user=str(friend_id))
     return json.dumps(list(intersection(my_topics, friend_topics))[:10])
 
-@app.route('/api/avatar/<str:user_id>')
+@app.route('/api/avatar/<string:user_id>')
 def get_avatar(user_id, dimension=500):
     request_url = ROOT_URL + user_id + "/picture" + "?height=" + str(dimension) + "&width=" + str(dimension) + "&access_token=" + ACCESS
     request = requests.head(request_url, allow_redirects=True)
+    pdb.set_trace()
     return request.url
 
 """
