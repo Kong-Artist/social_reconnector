@@ -82,7 +82,7 @@ def get_user_topics(user="me", page_limit=1):
         return None
 
     posts = filter(lambda x: 'story' not in x.keys(), [post for post in posts])
-    messages = " ".join([x['message'] for x in posts])
+    messages = " ".join([x['message'] for x in posts if 'message' in x])
 
     return sorted(get_topics(messages), key=lambda x: x[1], reverse=True)
 
@@ -99,12 +99,11 @@ def get_user_likes(user="me", page_limit=1):
 
 def jaccard(a, b):
     a = set(a)
-    if not len(a): return set()
     b = set(b)
-    if not len(b): return set()
     return len(a.intersection(b))/len(a.union(b))
 
 def intersection(a, b):
+    if not a or not b: return set()
     a = set(a)
     b = set(b)
     return a.intersection(b)
