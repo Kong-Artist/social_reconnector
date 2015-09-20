@@ -7,7 +7,7 @@ import indicoio
 
 import re
 
-ACCESS = "CAAB20ZCM2nN8BAG36wvNpWiGT4YZCZBEUMvR2Aqh000SJGitIw7O1ctKN8PpHqVZChoOsTt08nUcRmNseBiD9GQZCaInWMdlOFBWc6lBSiTn7vJZCXCX0ZBQFJmIjMZBsc7QXIBnsDH3hvxzTDVbMWNTL2znKYOrxYIhr5YJ3VsPZBVStl5pZBdkIz7IiOZCLjWgJZCW6ZAYt4AHivv02swSVOG4F"
+ACCESS = "CAACEdEose0cBAM4V7Gy6C6vdhYP5rdsW95KL6DeUL5LXECQYwMI2WcZCMbCtNyTVukfbG8jzsNgVcgZBCncQo0aoc6VIuDeJLIyk81Fj6vtGIya9YgkkZC1nzSFkETYmOLqMfoMcYOLAoZC5LGRa9DKkkCs5MGyEz7lr9cA5KV36RP1WAOzEQ1Faw4EPTW7I3kxupLhwCzgWnwlbZBS68"
 
 ROOT_URL = "https://graph.facebook.com/v2.4/"
 
@@ -20,11 +20,6 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template("index.html")
-
-@app.route('/api/login', methods = ['POST'])
-def post_token():
-    ACCESS = request.form['token']
-    return "dog"
 
 @app.route('/api/friends')
 def find_friends():
