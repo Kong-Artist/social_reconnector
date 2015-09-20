@@ -10,8 +10,8 @@ var FriendList = React.createClass({
     });
     return (
       <div>
-        <h1>Your friends</h1>
-        <div className="friend-list-container padding">
+        <h1>Your (long-lost) friends</h1>
+        <div className="orange-container padding-list shadow">
           {friendNodes}
         </div>
       </div>

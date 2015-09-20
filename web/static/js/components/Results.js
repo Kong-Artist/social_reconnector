@@ -10,9 +10,9 @@ var Results = React.createClass({
       );
     });
     return (
-      <div className="recommendation-list-container">
+      <div>
         <h1>Things you have in common:</h1>
-        <div>
+        <div className="orange-container padding-list">
           {resultNodes}
         </div>
       </div>

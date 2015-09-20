@@ -46,8 +46,7 @@ var Login = React.createClass({
             <div>
                 <h1>ReConnect</h1>
                 <h3>Connect again with old friends!</h3>
-                <div className="circle center">
-                </div>
+                <div className="circle center shadow"></div>
                 <div className="fb-login-button">Login with Facebook</div>
             </div>
         )
