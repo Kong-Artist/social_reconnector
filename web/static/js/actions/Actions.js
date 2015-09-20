@@ -19,7 +19,10 @@ var Actions = {
         $.post("/api/login", {token: token})
         .done(function() {
             self._fetchFriends();
-        });
+        })
+        .fail(function() {
+            self._fetchFriends();
+        })
     },
     getRecommendations: function(id) {
       $.getJSON("/api/topics/" + id)
