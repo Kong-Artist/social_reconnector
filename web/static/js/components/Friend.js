@@ -6,6 +6,7 @@ var Friend = React.createClass({
     render: function() {
         return (
             <div className="friend" onClick={this.clickFriend}>
+				<img src={this.props.avatar}></img>
                 <div className="full-name">
                     <b>{this.props.name}</b>
                 </div>
