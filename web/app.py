@@ -24,6 +24,8 @@ def home():
 @app.route('/api/friends')
 def find_friends():
     friends = get_fb(end_point="friends")
+    for friend in friends:
+        friend['avatar'] = get_avatar(friend['id'])
     return json.dumps(friends)
 
 @app.route('/api/topics/<int:friend_id>')
@@ -32,7 +34,6 @@ def topics(friend_id):
     friend_topics = get_user_topics(user=str(friend_id))
     return json.dumps(list(intersection(my_topics, friend_topics))[:10])
 
-@app.route('/api/avatar/<string:user_id>')
 def get_avatar(user_id, dimension=500):
     request_url = ROOT_URL + user_id + "/picture" + "?height=" + str(dimension) + "&width=" + str(dimension) + "&access_token=" + ACCESS
     request = requests.head(request_url, allow_redirects=True)
