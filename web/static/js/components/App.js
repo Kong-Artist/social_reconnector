@@ -62,7 +62,6 @@ var App = React.createClass({
 React.render(
   React.createElement(
     App, {
-      initialPage: 'login',//'login'
       url: 'public/friends.json'
     }
   ),

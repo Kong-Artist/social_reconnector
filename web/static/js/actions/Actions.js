@@ -1,5 +1,4 @@
 var Dispatcher = new Flux.Dispatcher();
-var URL = "https://0143f8a9.ngrok.io";
 
 var Actions = {
     // _fetchFriends: function() {
