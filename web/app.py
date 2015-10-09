@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import pdb
 import requests
 import json
@@ -6,6 +6,9 @@ import json
 import indicoio
 
 import re
+
+from string import printable
+from random import choice
 
 ACCESS = "CAACEdEose0cBACJJvDYf46Xete3Yib9cOsFlMXpAGsGV4X7pZBc2kNYaNLxtnICKlpv0XZCxZCQ8hVB2CzGZAsCovW9zRIHKZANAxkSDDPbCSVZCIYGEQcIgvDPXyMARNH3jIgNDpNIQ1fauIMe9pWhrK0WJi0TueLGTRuhyzYot9uD6PMU3lGC8P4V6xlhuSAXT3p0BemZAbVhrzWyK8S8"
 
@@ -16,10 +19,22 @@ indicoio.config.api_key = 'a904fcec233ed2f418ae32f2ad179000'
 END_POINTS = ["likes", "posts", "events", "movies", "music", "tagged_places"]
 
 app = Flask(__name__)
+app.secret_key = "".join([choice(printable) for _ in range(16)])
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        session['user-fb-token'] = request.form['user-fb-token']
+        return json.dumps({'status': 1})
+    return json.dumps({'status': -1})
+
+@app.route('/get_token')
+def get_token():
+    return json.dumps({'token': session['user-fb-token']}) if 'user-fb-token' in session else json.dumps({'token': -1})
 
 @app.route('/api/friends')
 def find_friends():
